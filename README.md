@@ -4,7 +4,7 @@ Este repositorio contiene el código fuente de una aplicación web interactiva q
 
 ## Descripción
 
-La aplicación permite explorar visualmente las divisiones territoriales de Argentina, facilitando el análisis espacial y la comprensión de la distribución geográfica del país. Entre las capas disponibles se encuentran:
+La aplicación permite explorar visualmente las divisiones territoriales de Argentina. Entre las capas disponibles se encuentran:
 
 - **Red Ferroviaria**: Muestra la infraestructura de transporte ferroviario de Argentina.
 - **Provincias**: Visualiza las provincias que componen el territorio argentino.
@@ -32,7 +32,7 @@ Para ejecutar la aplicación de manera local, sigue estos pasos:
 ## Desarrollado como parte de:
 
 - **Tarea 4**: Asignatura *Herramientas Informáticas para el Geoprocesado*, Universidad de Salamanca.
-- **Máster**: *MUGCIA* (Máster Universitario en Geoinformática para la Gestión del Cambio Ambiental).
+- **Máster**: *MUGCIA* (Máster Universitario en Geotecnologías Cartográficas para Ingeniería y Arquitectura).
 
 ## Contribuciones
 
