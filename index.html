@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8" />
+  <head>
+    <title>Andres Moreno Vasquez</title>
+    <!-- Script de Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+    <!-- Hoja de estilos de Leaflet -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+    />
+    <style>
+      #mapa {
+        width: 90%;
+        height: 600px;
+        margin: 0 auto;
+        display: block;
+      }
+    </style>
+    <!-- Archivos GeoJSON para Argentina -->
+    <script type="text/javascript" src="ARG_JS/ARG_adm0.js"></script>
+    <script type="text/javascript" src="ARG_JS/ARG_adm1.js"></script>
+    <script type="text/javascript" src="ARG_JS/ARG_adm2.js"></script>
+    <script type="text/javascript" src="ARG_JS/ARG_rails.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1 style="font-size: 32px; color: #6cace4; text-align: center">
+        IDE Mapa de Argentina
+      </h1>
+      <h2 style="font-size: 20px; color: #ffb81c; text-align: center">
+        Algunas capas desde GeoJson
+      </h2>
+      <p style="font-size: 15px; color: #7d4016; text-align: center">
+        Andrés Moreno Vásquez
+      </p>
+    </header>
+    <div id="mapa"></div>
+
+    <script>
+      // Estilos para las capas
+      var estilopais = {
+        fillColor: "#6CACE4",
+        opacity: 1,
+        color: "#FFB81C",
+        weight: 3,
+        fillOpacity: 0.33,
+      };
+
+      var estiloregiones = {
+        fillColor: "#6CACE4",
+        opacity: 1,
+        color: "#FFFFFF",
+        weight: 1,
+        fillOpacity: 0.33,
+      };
+
+      var estiloprovincias = {
+        fillColor: "#6CACE4",
+        opacity: 1,
+        color: "#FFFFFF",
+        weight: 0.75,
+        fillOpacity: 0.33,
+      };
+
+      var estilorails = {
+        fillColor: "#6CACE4",
+        opacity: 1,
+        color: "#7D4016",
+        weight: 1,
+        fillOpacity: 0,
+      };
+
+      // Capa base con OpenStreetMap
+      var osmLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+      var osmUrl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+      var osmAttrib = "&copy; " + osmLink + " Contributors";
+      var osmMap = L.tileLayer(osmUrl, { attribution: osmAttrib });
+
+      // Crear el mapa
+      var mimapa = L.map("mapa", {
+        maxZoom: 20,
+        center: new L.LatLng(-38.4161, -63.6167),
+        zoom: 4,
+      });
+      osmMap.addTo(mimapa);
+
+      // Agregar capas GeoJSON de Argentina
+      var capa_pais = L.geoJson(ARG_adm0, { style: estilopais }).addTo(mimapa); // Capa de países
+      var capa_comunidades = L.geoJson(ARG_adm1, {
+        style: estiloregiones,
+      }).addTo(mimapa); // Capa de comunidades
+      var capa_provincias = L.geoJson(ARG_adm2, {
+        style: estiloprovincias,
+      }).addTo(mimapa); // Capa de provincias
+      var capa_trenes = L.geoJson(ARG_rails, { style: estilorails }).addTo(
+        mimapa
+      ); // Capa de trenes
+
+      // Crear un control de capas
+      var capasbase = {
+        "Mapa OpenStreetMap": osmMap,
+      };
+
+      var capasadicionales = {
+        "Red Ferroviaria": capa_trenes, // necesita comillas por el espacio que contiene entre "Red" y "Ferroviaria"
+        Provincias: capa_provincias,
+        Regiones: capa_comunidades,
+        Argentina: capa_pais,
+      };
+
+      // Añadir el control de capas
+      L.control.layers(capasbase, capasadicionales).addTo(mimapa);
+    </script>
+  </body>
+</html>
